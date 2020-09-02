@@ -1,2 +1,2 @@
-# Module-4
-Normalization 
+CLASS PROJECT
+NORMALIZATION OF MAIN TABLE  
