@@ -79,10 +79,9 @@ WHERE StudentAverage IN (0.42,0.49,0.50,0.54,0.55,0.57,0.58,0.60,0.61,0.63,0.66,
 ALTER TABLE avgGrade
 ADD gradeID INT;
 
-DROP TABLE GradeGlossary;
 
 CREATE TABLE GradeGlossary(
-			GradeID INT,
+			GradeID INT NOT NULL,
 			Grade varchar(3));
 
 INSERT INTO GradeGlossary(GradeID, Grade)
@@ -97,3 +96,19 @@ INSERT INTO GradeGlossary(GradeID, Grade)
 			(9,'A-'),
 			(10,'F');
 
+ALTER TABLE letterGrade
+ADD CONSTRAINT fk_studentID3 FOREIGN KEY(studentID)
+REFERENCES studentInfo(studentID);
+
+ALTER TABLE GradeGlossary
+ADD CONSTRAINT pk_GradeID PRIMARY KEY(GradeID);
+
+ALTER TABLE avgGrade
+ADD CONSTRAINT fk_GradeID FOREIGN KEY(GradeID)
+REFERENCES GradeGlossary(GradeID);
+ 
+********* JOINING 3 TABLES(studentInfo, avgGrade, letterGrade) WITH INNER JOIN STATEMENT **************				      
+				      
+SELECT studentInfo.studentID, studentInfo.firstName, studentInfo.lastName, avgGrade.studentAverage,letterGrade.Grade
+FROM studentInfo INNER JOIN avgGrade ON studentInfo.studentID = avgGrade.studentID
+		 INNER JOIN letterGrade ON studentInfo.studentID = letterGrade.studentID;
